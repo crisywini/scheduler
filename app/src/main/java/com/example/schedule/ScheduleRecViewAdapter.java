@@ -27,6 +27,7 @@ public class ScheduleRecViewAdapter extends RecyclerView.Adapter<ScheduleRecView
 
     public void setClasses(List<Class> classes) {
         this.classes = classes;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -42,7 +43,7 @@ public class ScheduleRecViewAdapter extends RecyclerView.Adapter<ScheduleRecView
         holder.nameClassTV.setText(classes.get(position).getName());
         holder.nameTeacherTV.setText(classes.get(position).getTeacher().getName());
         Schedule schedule1 = classes.get(position).getScheduleOne();
-        String schedule1str = schedule1.getDay()+" h: "+schedule1.getStartTime();
+        String schedule1str = schedule1.getDay()+" h: "+schedule1.getStartTime()+" ";
         Schedule schedule2 = classes.get(position).getScheduleTwo();
         String schedule2str = schedule2.getDay()+" h: "+schedule2.getStartTime();
         holder.schedule1TV.setText(schedule1str);

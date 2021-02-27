@@ -3,4 +3,6 @@
     <string name="name_text_view">Nombre</string>
     <string name="id_text_view">ID</string>
     <string name="content_spinner">Día</string>
+    <string name="id_value_text_view">1006116733</string>
+    <string name="name_value_text_view">Cristian Sánchez Pineda</string>
 </resources>

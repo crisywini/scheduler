@@ -1,12 +1,20 @@
 package com.example.schedule;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.example.schedule.db.AdminSQLiteOpenHelper;
+import com.example.schedule.model.Class;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,7 +28,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        configureView();
     }
+
     private void configureView(){
         idTextView = (TextView) findViewById(R.id.id_text_view);
         nameTextView = (TextView) findViewById(R.id.name_text_view);
@@ -31,5 +41,14 @@ public class MainActivity extends AppCompatActivity {
         daySpinner.setAdapter(nameSpinArrAdapter);
         daySpinner.setPrompt("Días");
 
+        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this);
+        List<Class> classes = admin.getClasses();
+        ScheduleRecViewAdapter adapter = new ScheduleRecViewAdapter(this);
+        adapter.setClasses(classes);
+        scheduleRecyclerView.setAdapter(adapter);
+        scheduleRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
     }
+
+
 }

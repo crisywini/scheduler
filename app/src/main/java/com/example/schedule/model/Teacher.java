@@ -7,11 +7,12 @@ public class Teacher {
     private String name;
     private ArrayList<Class> classes;
 
-    public Teacher(int id, String name, ArrayList<Class> classes) {
+    public Teacher(int id, String name) {
         this.id = id;
         this.name = name;
-        this.classes = classes;
+        classes = new ArrayList<>();
     }
+
 
     public int getId() {
         return id;
