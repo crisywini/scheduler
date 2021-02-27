@@ -1,18 +1,27 @@
 package com.example.schedule.model;
 
 public class Class {
-
+    private int id;
     private String name;
     private String description;
     private Teacher teacher;
     private Schedule scheduleOne, scheduleTwo;
 
-    public Class(String name, String description, Teacher teacher, Schedule scheduleOne, Schedule scheduleTwo) {
+    public Class(int id, String name, String description, Teacher teacher, Schedule scheduleOne, Schedule scheduleTwo) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.teacher = teacher;
         this.scheduleOne = scheduleOne;
         this.scheduleTwo = scheduleTwo;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

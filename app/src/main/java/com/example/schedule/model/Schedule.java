@@ -1,6 +1,7 @@
 package com.example.schedule.model;
 public class Schedule {
 
+    private int id;
     private String day;
     private int startTime, endTime;
 
