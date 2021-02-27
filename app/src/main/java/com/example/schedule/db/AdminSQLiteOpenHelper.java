@@ -16,23 +16,27 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        final String SQL1 = "CREATE TABLE IF NOT EXISTS "+DATABASE_NAME+".teacher (" +
+        final String SQL1 = "CREATE TABLE IF NOT EXISTS teacher (" +
                                     "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                                     "name TEXT);";
 
-        final String SQL3 = "CREATE TABLE IF NOT EXISTS "+DATABASE_NAME+".class(" +
+        final String SQL3 = "CREATE TABLE IF NOT EXISTS class(" +
                                     "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                                     "name TEXT NOT NULL," +
                                     "description TEXT NOT NULL," +
-                                    "id_teacher INTEGER NOT NULL," +
-                                    "FOREIGN KEY(id_teacher) REFERENCES "+DATABASE_NAME+".teacher(id));";
+                                    "teacher_id INTEGER NOT NULL," +
+                                    "FOREIGN KEY(teacher_id) REFERENCES teacher(id));";
 
-        final String SQL2 = "CREATE TABLE IF NOT EXISTS "+DATABASE_NAME+".schedule (" +
+        final String SQL2 = "CREATE TABLE IF NOT EXISTS schedule (" +
                                     "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                                     "start_time INTEGER NOT NULL, " +
                                     "end_time INTEGER NOT NULL," +
                                     "day TEXT NOT NULL," +
-                                    "schedule_id INTEGER NOT NULL);";
+                                    "schedule_id INTEGER NOT NULL," +
+                                    "FOREIGN KEY(schedule_id) REFERENCES schedule(id));";
+        db.execSQL(SQL1);
+        db.execSQL(SQL3);
+        db.execSQL(SQL2);
     }
 
     @Override
