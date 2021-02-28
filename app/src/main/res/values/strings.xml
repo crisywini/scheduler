@@ -5,4 +5,5 @@
     <string name="content_spinner">Día</string>
     <string name="id_value_text_view">1006116733</string>
     <string name="name_value_text_view">Cristian Sánchez Pineda</string>
+    <string name="searcher_text_button">Buscar</string>
 </resources>

@@ -65,6 +65,27 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
         db.close();
         return teacher;
     }
+    public List<Class> getClassesByDay(String day){
+        List<Class> classes = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+        final String SQL = "SELECT * " +
+                            "FROM class c " +
+                            "INNER JOIN schedule s ON s.class_id = c.id " +
+                            "WHERE s.day = \'"+day+"\';";
+        Cursor cursor = db.rawQuery(SQL, null);
+        while(cursor.moveToNext()){
+            int id = cursor.getInt(0);
+            String name = cursor.getString(1);
+            String description = cursor.getString(2);
+            int idTeacher = cursor.getInt(3);
+            Teacher teacher = getTeacherById(idTeacher);
+            List<Schedule> schedules = getScheduleByIdAndClass(id);
+
+            classes.add(new Class(id, name, description, teacher, schedules.get(0), schedules.get(1)));
+        }
+        db.close();
+        return classes;
+    }
     private List<Schedule> getScheduleByIdAndClass(int idClass){
         SQLiteDatabase db = getReadableDatabase();
         final String SQL = "SELECT * " +

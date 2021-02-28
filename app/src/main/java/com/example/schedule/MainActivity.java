@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -20,9 +21,10 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView idTextView;
     private TextView nameTextView;
+    private Button filterButton;
     private Spinner daySpinner;
     private RecyclerView scheduleRecyclerView;
-
+    private final AdminSQLiteOpenHelper ADMIN = new AdminSQLiteOpenHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,19 +38,25 @@ public class MainActivity extends AppCompatActivity {
         nameTextView = (TextView) findViewById(R.id.name_text_view);
         daySpinner = (Spinner) findViewById(R.id.day_spinner);
         scheduleRecyclerView = (RecyclerView) findViewById(R.id.schedules_recyclerview);
+        filterButton = (Button) findViewById(R.id.filter_btn);
         String[] namesSpinner = {"Lunes", "Martes", "Miercoles", "Jueves", "Viernes"};
         ArrayAdapter<String> nameSpinArrAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, namesSpinner);
         daySpinner.setAdapter(nameSpinArrAdapter);
         daySpinner.setPrompt("Días");
 
-        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this);
-        List<Class> classes = admin.getClasses();
+        List<Class> classes = ADMIN.getClasses();
         ScheduleRecViewAdapter adapter = new ScheduleRecViewAdapter(this);
         adapter.setClasses(classes);
         scheduleRecyclerView.setAdapter(adapter);
         scheduleRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
+        filterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String day = daySpinner.getSelectedItem().toString();
+                List<Class> classes1 = ADMIN.getClassesByDay(day);
+                adapter.setClasses(classes1);
+            }
+        });
     }
-
 
 }
